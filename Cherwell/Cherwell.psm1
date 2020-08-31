@@ -590,7 +590,7 @@ function Set-FieldValue {
         if ($HTML) {
             $Fields.Html = $true
         }
-        elseif ($Value -match '\S.*') {
+        elseif ($Value -match '<\S.*>') {
             $Fields.Html = $true
         }
         else {
