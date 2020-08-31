@@ -405,6 +405,9 @@ function Invoke-CherwellRequest {
 	
     $timestamp = (Get-Date)
     $results = Invoke-RestMethod @splat
+
+    # TODO Add some Error Handling to give the user an idea what is broke?
+
     Write-Verbose "Response received and parsed in $((Get-Date) - $timestamp)"
 	
     return $results
@@ -588,16 +591,16 @@ function Set-FieldValue {
 
         #Implement HTML support
         if ($HTML -eq $true) {
-            $Fields.Html = $true
+            $Field.html = $true
         }
         elseif ($HTML -eq $false) {
-            $Fields.Html = $false
+            $Field.html = $false
         }
         elseif ($HTML -eq $null -and $Value -match '<\S.*>') {
-            $Fields.Html = $true
+            $Field.html = $true
         }
         else {
-            $Fields.Html = $false
+            $Field.html = $false
         }
     }
     End {
@@ -628,10 +631,12 @@ function New-Field {
         # Parameter help description
         [Parameter(Mandatory = $true)]
         [bool]
-        $Dirty         
+        $Dirty,
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [bool]
+        $HTML
     )
-
-    #Implement HTML support
 
     return @{
         'dirty'       = $Dirty
@@ -639,6 +644,7 @@ function New-Field {
         'fieldId'     = $FieldId
         'name'        = $Name
         'value'       = $Value
+        'html'        = $HTML
     }
 }
 #EndRegion HelperFunctions
@@ -660,6 +666,33 @@ function Get-BusinessObjectSummariesByType {
     $uri = Build-URI -Segments 'getbusinessobjectsummaries', 'type', $Type
     # Create some caching here, use force parameter to override using cache
     return Invoke-CherwellRequest -uri $uri
+}
+function Get-BusinessObjectSummary {
+    [CmdletBinding()]
+    param (
+        # Parameter help description
+        [Parameter(ParameterSetName = 'ById', Mandatory = $true)]
+        [Alias('BusObId')]
+        [string]
+        $BusinessObjectId,
+
+        # Parameter help description
+        [Parameter(ParameterSetName = 'ByName', Mandatory = $true)]
+        [Alias('BusObName')]
+        [string]
+        $BusinessObjectName    
+    )
+    Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
+    switch ($PsCmdlet.ParameterSetName) {
+        'ById' {
+            $uri = Build-URI -Segments 'getbusinessobjectsummary', 'busobid', $BusinessObjectId
+            return Invoke-CherwellRequest -uri $uri
+        }
+        'ByName' {
+            $uri = Build-URI -Segments 'getbusinessobjectsummary', 'busobname', $BusinessObjectName
+            return Invoke-CherwellRequest -uri $uri
+        }
+    }
 }
 function Get-BusinessObjectSummaryById {
     [CmdletBinding()]
@@ -688,6 +721,40 @@ function Get-BusinessObjectSummaryByName {
     $uri = Build-URI -Segments 'getbusinessobjectsummary', 'busobname', $BusinessObjectName
     return Invoke-CherwellRequest -uri $uri
 }
+function Get-BusinessObjectSchema {
+    [CmdletBinding()]
+    param (
+        # Parameter help description
+        [Parameter(ParameterSetName = 'ById', Mandatory = $true)]
+        [Alias('BusObId')]
+        [string]
+        $BusinessObjectId,
+        
+        # Parameter help description
+        [Parameter(ParameterSetName = 'ByName', Mandatory = $true)]
+        [Alias('BusObName')]
+        [string]
+        $BusinessObjectName    
+    )
+    Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
+
+    if ($IncludeRelationships) {
+        $uriParameters = @{
+            'includerelationships' = $true
+        }
+    }
+    switch ($PsCmdlet.ParameterSetName) {
+        'ById' {
+            $uri = Build-URI -Segments @('getbusinessobjectschema', 'busobid', $BusinessObjectId) -Parameters $uriParameters
+            return Invoke-CherwellRequest -uri $uri
+        }
+        'ByName' {
+            $BusOb = Get-BusinessObjectSummary -BusObName $BusinessObjectName
+            $uri = Build-URI -Segments @('getbusinessobjectschema', 'busobid', $BusOb.BusObId) -Parameters $uriParameters
+            return Invoke-CherwellRequest -uri $uri
+        }
+    }
+}
 function Get-BusinessObjectSchemaById {
     [CmdletBinding()]
     param (
@@ -701,6 +768,11 @@ function Get-BusinessObjectSchemaById {
         $IncludeRelationships
     )
     Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
+    if ($IncludeRelationships) {
+        $uriParameters = @{
+            'includerelationships' = $true
+        }
+    }
     $uri = Build-URI -Segments @('getbusinessobjectschema', 'busobid', $BusinessObjectId) -Parameters $uriParameters
     return Invoke-CherwellRequest -URI $uri
 }
@@ -711,12 +783,101 @@ function Get-BusinessObjectSchemaByName {
         [Parameter(Mandatory = $true)]
         [Alias('BusObName')]
         [string]
-        $BusinessObjectName 
+        $BusinessObjectName,
+
+        # Parameter help description
+        [switch]
+        $IncludeRelationships
     )
     Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
+    if ($IncludeRelationships) {
+        $uriParameters = @{
+            'includerelationships' = $true
+        }
+    }
     $BusOb = Get-BusinessObjectSummaryByName -BusObName $BusinessObjectName
     $uri = Build-URI -Segments @('getbusinessobjectschema', 'busobid', $BusOb.BusObId) -Parameters $uriParameters
     return Invoke-CherwellRequest -URI $uri
+}
+function Get-BusinessObjectTemplate {
+    [CmdletBinding()]
+    param (
+        # Parameter help description
+        [Parameter(Mandatory = $true, ParameterSetName = 'SpecificFieldsById')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'AllFieldsById')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'RequiredFieldsById')]
+        [Alias('BusObId')]
+        [string]
+        $BusinessObjectId,
+
+        # Parameter help description
+        [Parameter(Mandatory = $true, ParameterSetName = 'SpecificFieldsByName')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'AllFieldsByName')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'RequiredFieldsByName')]
+        [Alias('BusObName')]
+        [string]
+        $BusinessObjectName,
+        
+        # Parameter help description
+        [Parameter(Mandatory = $true, ParameterSetName = 'SpecificFieldsById')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'SpecificFieldsByName')]
+        [string[]]
+        $FieldNames,
+        
+        # Parameter help description
+        [Parameter(Mandatory = $true, ParameterSetName = 'AllFieldsById')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'AllFieldsByName')]
+        [switch]
+        $IncludeAllFields,
+        
+        # Parameter help description
+        [Parameter(Mandatory = $true, ParameterSetName = 'RequiredFieldsById')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'RequiredFieldsByName')]
+        [switch]
+        $IncludeRequiredFields
+    )
+    Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
+    $uri = Build-URI -Segments 'getbusinessobjecttemplate'
+    $body = @{}
+
+    Write-Verbose $PsCmdlet.ParameterSetName
+
+    switch ($PsCmdlet.ParameterSetName) {
+        'SpecificFieldsById' {
+            $body.Add('busObId', $BusinessObjectId)
+            $body.Add('fieldNames', [System.Collections.ArrayList]::new($FieldNames))
+            break
+        }
+        'SpecificFieldsByName' {
+            $BusOb = Get-BusinessObjectSummary -BusObName $BusinessObjectName
+            $body.Add('busObId', $BusOb.BusObId)
+            $body.Add('fieldNames', [System.Collections.ArrayList]::new($FieldNames))
+            break
+        }
+        'AllFieldsById' {
+            $body.Add('busObId', $BusinessObjectId)
+            $body.Add('includeAll', $true)
+            break
+        }
+        'AllFieldsByName' {
+            $BusOb = Get-BusinessObjectSummary -BusObName $BusinessObjectName
+            $body.Add('busObId', $BusOb.BusObId)
+            $body.Add('includeAll', $true)
+            break
+        }
+        'RequiredFieldsById' {
+            $body.Add('busObId', $BusinessObjectId)
+            $body.Add('includeRequired', $true)
+            break
+        }
+        'RequiredFieldsByName' {
+            $BusOb = Get-BusinessObjectSummary -BusObName $BusinessObjectName
+            $body.Add('busObId', $BusOb.BusObId)
+            $body.Add('includeRequired', $true)
+            break
+        }
+    }
+    Invoke-CherwellRequest -URI $uri -Body $body -Method POST
 }
 function Get-BusinessObjectTemplateById {
     [CmdletBinding()]
