@@ -562,8 +562,8 @@ function Set-FieldValue {
 
         # Parameter help description
         [Parameter(Mandatory = $false, Position = 2)]
-        [bool]
-        $HTML
+        [nullable[bool]]
+        $HTML = $false
     )
     Begin {
         Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
@@ -587,10 +587,13 @@ function Set-FieldValue {
         }
 
         #Implement HTML support
-        if ($HTML) {
+        if ($HTML -eq $true) {
             $Fields.Html = $true
         }
-        elseif ($Value -match '<\S.*>') {
+        elseif ($HTML -eq $false) {
+            $Fields.Html = $false
+        }
+        elseif ($HTML -eq $null -and $Value -match '<\S.*>') {
             $Fields.Html = $true
         }
         else {
