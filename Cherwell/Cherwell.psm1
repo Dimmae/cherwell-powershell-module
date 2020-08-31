@@ -490,7 +490,7 @@ function Connect-CherwellAPI {
 
     Write-Progress -Id 1 -Activity "Connecting to CherwellAPI at $Hostname" -PercentComplete 10 -CurrentOperation "Configuring Environment"
 
-    $null = Set-CherwellConfig -Create -Verbose
+    $null = Set-CherwellConfig -Create
     $null = Set-CherwellHostName -Hostname $Hostname
     $null = Set-CherwellAuthenticationSource -AuthenticationSource $AuthenticationSource
     $null = Set-CherwellUsername -Username $Username
@@ -561,7 +561,8 @@ function Set-FieldValue {
         $Value,
 
         # Parameter help description
-        [switch]
+        [Parameter(Mandatory = $false, Position = 2)]
+        [bool]
         $HTML
     )
     Begin {
@@ -586,7 +587,15 @@ function Set-FieldValue {
         }
 
         #Implement HTML support
-
+        if ($HTML) {
+            $Fields.Html = $true
+        }
+        elseif ($Value -match '\S.*') {
+            $Fields.Html = $true
+        }
+        else {
+            $Fields.Html = $false
+        }
     }
     End {
 
@@ -733,7 +742,7 @@ function Get-BusinessObjectTemplateById {
     Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
     $uri = Build-URI -Segments 'getbusinessobjecttemplate'
     $body = @{
-        'busObId' = $BusObId
+        'busObId' = $BusinessObjectId
     }
     switch ($PsCmdlet.ParameterSetName) {
         'SpecificFields' {
@@ -766,24 +775,24 @@ function Get-BusinessObjectById {
 
         # Parameter help description
         [Parameter(ParameterSetName = 'RecId', Mandatory = $true)]
-        [Alias('RecId')]
+        [Alias('RecId', 'BusObRecId')]
         [string]
-        $BusObRecId,
+        $BusinessObjectRecId,
 
         # Parameter help description
         [Parameter(ParameterSetName = 'PublicId', Mandatory = $true)]
-        [Alias('PublicId')]
+        [Alias('PublicId', 'BusObPublicId')]
         [string]
-        $BusObPublicId
+        $BusinessObjectPublicId
     )
     Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
     switch ($PsCmdlet.ParameterSetName) {
         'RecId' {
-            $uri = Build-URI -Segments 'getbusinessobject', 'busobid', $busobid, 'busobrecid', $BusObRecId
+            $uri = Build-URI -Segments 'getbusinessobject', 'busobid', $BusinessObjectId, 'busobrecid', $BusinessObjectRecordId
             break
         }
         'PublicId' {
-            $uri = Build-URI -Segments 'getbusinessobject', 'busobid', $busobid, 'publicid', $BusObPublicId
+            $uri = Build-URI -Segments 'getbusinessobject', 'busobid', $BusinessObjectId, 'publicid', $BusinessObjectPublicId
             break
         }
     }
@@ -854,16 +863,16 @@ function Update-BusinessObjectById {
     }
     Process {
         $body = @{
-            'busObId' = $busObId
+            'busObId' = $BusinessObjectId
             'fields'  = $fields
         }
         switch ($PsCmdlet.ParameterSetName) {
             'RecId' {
-                $body.Add('busObRecId', $busObRecId)
+                $body.Add('busObRecId', $BusinessObjectRecordId)
                 break
             }
             'PublicId' {
-                $body.Add('busObPublicId', $busObPublicId)
+                $body.Add('busObPublicId', $BusinessObjectPublicId)
                 break
             }
         }		
@@ -962,7 +971,7 @@ function Get-SearchItemsAdHoc {
         }
     }    
     Process {
-        $body.busObId = $BusObId
+        $body.busObId = $BusinessObjectID
 			
         try {
             Invoke-CherwellRequest -URI $uri -Body $body -Method POST -Timeout $Timeout
@@ -970,12 +979,12 @@ function Get-SearchItemsAdHoc {
         catch {
             if ($_.ErrorDetails.Message -match "The Business Object is not configured for searching") {
                 $eSplat = @{
-                    'Message'           = "The Business Object $BusObId is not configured for searching."
+                    'Message'           = "The Business Object $BusinessObjectID is not configured for searching."
                     'Category'          = $_.CategoryInfo.Category
                     'CategoryActivity'  = $_.CategoryInfo.Activity
                     'CategoryReason'    = $_.CategoryInfo.Reason
                     'TargetObject'      = $_.TargetObject
-                    'RecommendedAction' = "Configure the object $BusObId for searching in Cherwell Administrator"
+                    'RecommendedAction' = "Configure the object $BusinessObjectID for searching in Cherwell Administrator"
                 }
                 Write-Error @eSplat
             }
@@ -1052,6 +1061,31 @@ function New-SearchFilter {
 #EndRegion Service
 
 #Region Teams
+function Get-Teams {
+    [CmdletBinding()]
+    param (        
+    )
+    Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
+    $uri = Build-URI -Segments 'getteams'
+    # Create some caching here, use force parameter to override using cache
+    return Invoke-CherwellRequest -uri $uri
+}
+function Get-TeamByName {
+    [CmdletBinding()]
+    param (
+        # Parameter help description
+        [Parameter(Mandatory = $true)]
+        [string]
+        $TeamName
+    )
+    Write-Verbose "$($PSCmdlet.MyInvocation.InvocationName) called"
+
+    $Teams = Get-Teams
+    $Team = $Teams.teams | Where-Object { $_.teamName -eq "${TeamName}" }
+
+    $uri = Build-URI -Segments 'getteam', $Team.TeamId
+    return Invoke-CherwellRequest -uri $uri
+}
 #EndRegion Teams
 
 #Region Users
