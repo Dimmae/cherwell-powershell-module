@@ -1,0 +1,549 @@
+{
+	"info": {
+		"_postman_id": "298daa93-2b23-4c4d-966c-f076a5b3d273",
+		"name": "Cherwell",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BusinessObject",
+			"item": [
+				{
+					"name": "Incident",
+					"item": [
+						{
+							"name": "create incident",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"fields\": [\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Description\",\r\n      \"fieldId\": \"252b836fc72c4149915053ca1131d138\",\r\n      \"html\": null,\r\n      \"name\": \"Description\",\r\n      \"value\": \"QWRkICBVc2VyIHRvIFVORkkgQUQgR3JvdXA6ICBJQ0EuU0FMQVBQUy5DSVRSSVgKCiBGb3JtIFZhcmlhYmxlczoKICsrKysrKysrKysrKysrKysrKysrKysrKysrCiBBZGQvUmVtb3ZlOiBhZGQKIFJlcXVlc3RlZCBGb3I6IFRhbWFyYSBEdXBza2UKIFVzZXIgQWx0IElEOiB0ZHVwMDBjCiBSZXF1ZXN0ZWQgRm9yIExvY2F0aW9uOiA4MjQyNCBIUSAtIFNBTCBDb3Jwb3JhdGUgSG9tZSBPZmZpY2UKIEVudmlyb25tZW50OiBQcm9kdWN0aW9uCiBBY2Nlc3MgQmVpbmcgUmVxdWVzdGVkOiBHcm9jZXJ5IFJlYnV5ZXIKIFJlcXVlc3QgQXBwcm92ZWQgaW4gU0FMIFNlcnZpY2UgTm93Lg==\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Summary\",\r\n      \"fieldId\": \"944d4a6f5f90b6a290af8045ed99126b97760dbc02\",\r\n      \"html\": null,\r\n      \"name\": \"Summary\",\r\n      \"value\": \"Assign AD Group\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Priority\",\r\n      \"fieldId\": \"83c36313e97b4e6b9028aff3b401b71c\",\r\n      \"html\": null,\r\n      \"name\": \"Priority\",\r\n      \"value\": \"3\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Owned By Team\",\r\n      \"fieldId\": \"9339fc404e8d5299b7a7c64de79ab81a1c1ff4306c\",\r\n      \"html\": null,\r\n      \"name\": \"OwnedByTeam\",\r\n      \"value\": \"Access Provisioning\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Call Source\",\r\n      \"fieldId\": \"93670bdf8abe2cd1f92b1f490a90c7b7d684222e13\",\r\n      \"html\": null,\r\n      \"name\": \"Source\",\r\n      \"value\": \"Integration\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Incident Number\",\r\n      \"fieldId\": \"944dcc84925a33b503d1dd4f93b640eabb286ecd34\",\r\n      \"html\": null,\r\n      \"name\": \"VendorIncidentNumber\",\r\n      \"value\": \"SCTASK0013507\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Incident Type\",\r\n      \"fieldId\": \"9365a6098398ff2551e1c14dd398c466d5a201a9c7\",\r\n      \"html\": null,\r\n      \"name\": \"IncidentType\",\r\n      \"value\": \"Service Request\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Service\",\r\n      \"fieldId\": \"936725cd10c735d1dd8c5b4cd4969cb0bd833655f4\",\r\n      \"html\": null,\r\n      \"name\": \"Service\",\r\n      \"value\": \"Information Technology\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Category\",\r\n      \"fieldId\": \"9e0b434034e94781ab29598150f388aa\",\r\n      \"html\": null,\r\n      \"name\": \"Category\",\r\n      \"value\": \"Service Management\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Subcategory\",\r\n      \"fieldId\": \"1163fda7e6a44f40bb94d2b47cc58f46\",\r\n      \"html\": null,\r\n      \"name\": \"Subcategory\",\r\n      \"value\": \"Save-A-Lot Request\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Caller Email\",\r\n      \"fieldId\": \"9452125ca42767fc05967f4e4a82fcec9c9957b5ad\",\r\n      \"html\": null,\r\n      \"name\": \"VendorCallerEmail\",\r\n      \"value\": \"nathan.storm@savealot.com\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Name\",\r\n      \"fieldId\": \"945d41331e251e8d4005b54b588ce4fe73ad86eb6e\",\r\n      \"html\": null,\r\n      \"name\": \"VendorName\",\r\n      \"value\": \"SaveALot Dev\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Ticket Type\",\r\n      \"fieldId\": \"9452125c5a91c630170c9f4f35b2ebc76b75f5dc3f\",\r\n      \"html\": null,\r\n      \"name\": \"VendorTicketType\",\r\n      \"value\": \"SCTASK\"\r\n    }\r\n  ],\r\n  \"busObId\": \"6dd53665c0c24cab86870a21cf6434ae\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}/api/v1/savebusinessobject",
+									"host": [
+										"{{base-url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"savebusinessobject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update incident",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"fields\": [\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Description\",\r\n      \"fieldId\": \"252b836fc72c4149915053ca1131d138\",\r\n      \"html\": null,\r\n      \"name\": \"Description\",\r\n      \"value\": \"QWRkICBVc2VyIHRvIFVORkkgQUQgR3JvdXA6ICBJQ0EuU0FMQVBQUy5DSVRSSVgKCiBGb3JtIFZhcmlhYmxlczoKICsrKysrKysrKysrKysrKysrKysrKysrKysrCiBBZGQvUmVtb3ZlOiBhZGQKIFJlcXVlc3RlZCBGb3I6IFRhbWFyYSBEdXBza2UKIFVzZXIgQWx0IElEOiB0ZHVwMDBjCiBSZXF1ZXN0ZWQgRm9yIExvY2F0aW9uOiA4MjQyNCBIUSAtIFNBTCBDb3Jwb3JhdGUgSG9tZSBPZmZpY2UKIEVudmlyb25tZW50OiBQcm9kdWN0aW9uCiBBY2Nlc3MgQmVpbmcgUmVxdWVzdGVkOiBHcm9jZXJ5IFJlYnV5ZXIKIFJlcXVlc3QgQXBwcm92ZWQgaW4gU0FMIFNlcnZpY2UgTm93Lg==\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Summary\",\r\n      \"fieldId\": \"944d4a6f5f90b6a290af8045ed99126b97760dbc02\",\r\n      \"html\": null,\r\n      \"name\": \"Summary\",\r\n      \"value\": \"Assign AD Group\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Priority\",\r\n      \"fieldId\": \"83c36313e97b4e6b9028aff3b401b71c\",\r\n      \"html\": null,\r\n      \"name\": \"Priority\",\r\n      \"value\": \"3\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Owned By Team\",\r\n      \"fieldId\": \"9339fc404e8d5299b7a7c64de79ab81a1c1ff4306c\",\r\n      \"html\": null,\r\n      \"name\": \"OwnedByTeam\",\r\n      \"value\": \"Access Provisioning\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Call Source\",\r\n      \"fieldId\": \"93670bdf8abe2cd1f92b1f490a90c7b7d684222e13\",\r\n      \"html\": null,\r\n      \"name\": \"Source\",\r\n      \"value\": \"Integration\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Incident Number\",\r\n      \"fieldId\": \"944dcc84925a33b503d1dd4f93b640eabb286ecd34\",\r\n      \"html\": null,\r\n      \"name\": \"VendorIncidentNumber\",\r\n      \"value\": \"SCTASK0013507\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Incident Type\",\r\n      \"fieldId\": \"9365a6098398ff2551e1c14dd398c466d5a201a9c7\",\r\n      \"html\": null,\r\n      \"name\": \"IncidentType\",\r\n      \"value\": \"Service Request\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Service\",\r\n      \"fieldId\": \"936725cd10c735d1dd8c5b4cd4969cb0bd833655f4\",\r\n      \"html\": null,\r\n      \"name\": \"Service\",\r\n      \"value\": \"Information Technology\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Category\",\r\n      \"fieldId\": \"9e0b434034e94781ab29598150f388aa\",\r\n      \"html\": null,\r\n      \"name\": \"Category\",\r\n      \"value\": \"Service Management\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Subcategory\",\r\n      \"fieldId\": \"1163fda7e6a44f40bb94d2b47cc58f46\",\r\n      \"html\": null,\r\n      \"name\": \"Subcategory\",\r\n      \"value\": \"Save-A-Lot Request\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Caller Email\",\r\n      \"fieldId\": \"9452125ca42767fc05967f4e4a82fcec9c9957b5ad\",\r\n      \"html\": null,\r\n      \"name\": \"VendorCallerEmail\",\r\n      \"value\": \"nathan.storm@savealot.com\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Name\",\r\n      \"fieldId\": \"945d41331e251e8d4005b54b588ce4fe73ad86eb6e\",\r\n      \"html\": null,\r\n      \"name\": \"VendorName\",\r\n      \"value\": \"SaveALot Dev\"\r\n    },\r\n    {\r\n      \"dirty\": true,\r\n      \"displayName\": \"Vendor Ticket Type\",\r\n      \"fieldId\": \"9452125c5a91c630170c9f4f35b2ebc76b75f5dc3f\",\r\n      \"html\": null,\r\n      \"name\": \"VendorTicketType\",\r\n      \"value\": \"SCTASK\"\r\n    }\r\n  ],\r\n  \"busObId\": \"6dd53665c0c24cab86870a21cf6434ae\",\r\n  \"busObPublicId\": \"759173\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base-url}}/api/v1/savebusinessobject",
+									"host": [
+										"{{base-url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"savebusinessobject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove incident",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base-url}}/api/v1/deletebusinessobject/busobid/6dd53665c0c24cab86870a21cf6434ae/publicid/759173",
+									"host": [
+										"{{base-url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"deletebusinessobject",
+										"busobid",
+										"6dd53665c0c24cab86870a21cf6434ae",
+										"publicid",
+										"759173"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "summaries by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/v1/getbusinessobjectsummaries/type/all",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"getbusinessobjectsummaries",
+								"type",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "summary by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/v1/getbusinessobjectsummary/busobname/incident",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"getbusinessobjectsummary",
+								"busobname",
+								"incident"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schema by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/v1/getbusinessobjectschema/busobid/6dd53665c0c24cab86870a21cf6434ae?includerelationships=true",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"getbusinessobjectschema",
+								"busobid",
+								"6dd53665c0c24cab86870a21cf6434ae"
+							],
+							"query": [
+								{
+									"key": "includerelationships",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"busObId\":\"6dd53665c0c24cab86870a21cf6434ae\",\r\n    \"includeAll\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/api/v1/getbusinessobjecttemplate",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"getbusinessobjecttemplate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "field values lookup - WIP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"busObId\":\"9429c24cc192e05814dc75402e87a061621c403340\",\r\n    \"includeAll\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/api/v1/fieldvalueslookup",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fieldvalueslookup"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Core",
+			"item": [
+				{
+					"name": "stored value by stand in key",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/V1/getstoredvalue/standinkey/DefType%3AStoredValue%23Scope%3ATeam%23ScopeOwner%3A944d7ef12c9e1551c2ab1141378dace6a69caec8e4%23Id%3A946298dd8f0b48daefb5c5402a832b6d006d2bd222",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"V1",
+								"getstoredvalue",
+								"standinkey",
+								"DefType%3AStoredValue%23Scope%3ATeam%23ScopeOwner%3A944d7ef12c9e1551c2ab1141378dace6a69caec8e4%23Id%3A946298dd8f0b48daefb5c5402a832b6d006d2bd222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stored values by folder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/V1/storedvalues/scope/Team/scopeowner/Enterprise Monitoring/folder/Cherwell/",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"V1",
+								"storedvalues",
+								"scope",
+								"Team",
+								"scopeowner",
+								"Enterprise Monitoring",
+								"folder",
+								"Cherwell",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stored values by owner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/V1/storedvalues/scope/Team/scopeowner/Enterprise Monitoring",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"V1",
+								"storedvalues",
+								"scope",
+								"Team",
+								"scopeowner",
+								"Enterprise Monitoring"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stored values by scope",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/V1/storedvalues/scope/Global",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"V1",
+								"storedvalues",
+								"scope",
+								"Global"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stored values",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/V1/storedvalues",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"V1",
+								"storedvalues"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Searches",
+			"item": [
+				{
+					"name": "search results",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"pageNumber\": 1,\r\n  \"busObId\": \"93405caa107c376a2bd15c4c8885a900be316f3a72\",\r\n  \"pageSize\": 1000,\r\n  \"filters\": [\r\n    {\r\n      \"value\": \"sal\",\r\n      \"fieldId\": \"BO:93405caa107c376a2bd15c4c8885a900be316f3a72,FI:9337c2322a087296f7322a481d8858300e3f6e1dbb\",\r\n      \"operator\": \"startswith\"\r\n    }\r\n  ],\r\n  \"includeAllFields\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base-url}}/api/v1/getsearchresults",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"getsearchresults"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/V1/logout",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"V1",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "teams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/v2/getteams",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"getteams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "team by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/v1/getteam/944fe5e78cfd6cc9e1e84746cd9ecb91e1b6562792",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"getteam",
+								"944fe5e78cfd6cc9e1e84746cd9ecb91e1b6562792"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "getuserbyloginid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/api/v3/getuserbyloginid?loginidtype=Internal&loginid=postmanintegration",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"api",
+								"v3",
+								"getuserbyloginid"
+							],
+							"query": [
+								{
+									"key": "loginidtype",
+									"value": "Internal",
+									"description": "Internal or Windows"
+								},
+								{
+									"key": "loginid",
+									"value": "postmanintegration"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "668b1274-3903-4aa3-bca9-07d6cfb9604d",
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.unset(\"access-token\");",
+					"pm.collectionVariables.unset(\"access_token\");",
+					"",
+					"var BaseURL = pm.environment.get(\"base-url\");",
+					"var username = pm.environment.get(\"username\");",
+					"var password = pm.environment.get(\"password\");",
+					"",
+					"const Login = {",
+					"  url: BaseURL + '/token',",
+					"  method: 'POST',",
+					"  header: 'Content-Type:application/x-www-form-urlencoded',",
+					"  body: {",
+					"    mode: 'raw',",
+					"    raw: 'username=' + username + '&password=' + password + '&grant_type=' + 'password' + '&client_id=' + pm.environment.get(\"api-key\")",
+					"  }",
+					"};",
+					"pm.sendRequest(Login, function (err, response) {",
+					"    if (err)",
+					"    {",
+					"      console.log(response.json());",
+					"    }",
+					"    else",
+					"    {",
+					"      var responseJson = response.json();",
+					"      pm.environment.set(\"access-token\", responseJson.access_token);",
+					"      pm.collectionVariables.set(\"access-token\", responseJson.access_token);",
+					"    }",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "43dacad4-5184-4925-85fd-b61dacb324c3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ceb164ef-1562-4378-a8f2-95b5fa9f84f9",
+			"key": "access-token",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
